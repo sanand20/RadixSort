@@ -21,21 +21,24 @@ public static void merge(SortableLinkedList original, SortableLinkedList[]bucket
 }
 public static void radixSortSimple(SortableLinkedList data){
   SortableLinkedList[] buckets = new SortableLinkedList[10];
+
+
   for (int i = 0; i<10; i++){
     buckets[i] = new SortableLinkedList();
   }
   int passes = 0;
-  for (int i = 0; i<data.size(); i++){
-    if (length(data.get(i))>passes){
-      passes = data.get(i);
-    }
-  }
 
 
-  for (int j = 0; j<passes; j++){
+
+  for (int j = 0; j<passes+1; j++){
       while (data.size()>0){
           int rm =data.remove(0);
           buckets[nth(rm,j)].add(rm);
+          if (passes == 0){
+            if (length(rm)>passes){
+              passes = length(rm);
+            }
+          }
       }
         merge(data,buckets);
 
