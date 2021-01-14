@@ -26,15 +26,15 @@ public static void radixSortSimple(SortableLinkedList data){
   for (int i = 0; i<10; i++){
     buckets[i] = new SortableLinkedList();
   }
-  int passes = 0;
+  int passes = 1;
 
 
 
-  for (int j = 0; j<passes+1; j++){
+  for (int j = 0; j<passes; j++){
       while (data.size()>0){
           int rm =data.remove(0);
           buckets[nth(rm,j)].add(rm);
-          if (passes == 0){
+          if (j == 0){
             if (length(rm)>passes){
               passes = length(rm);
             }
