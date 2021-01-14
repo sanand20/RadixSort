@@ -43,7 +43,22 @@ public static void radixSortSimple(SortableLinkedList data){
 
 }
 public static void radixSort(SortableLinkedList data){
-  radixSortSimple(data);
-}
+  SortableLinkedList pos = new SortableLinkedList();
+  SortableLinkedList neg = new SortableLinkedList();
+    while(data.size() > 0) {
+        int first = data.remove(0);
+        if(first >= 0) {
+            pos.add(first);
+        } else {
+            neg.add(first);}}
+
+    radixSortSimple(pos);
+    radixSortSimple(neg);
+
+    while(neg.size() > 0) {
+        data.add(neg.remove(neg.size() - 1));
+    }
+    data.extend(pos);
+  }
 
 }
