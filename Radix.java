@@ -48,19 +48,46 @@ public static void radixSortSimple(SortableLinkedList data){
 public static void radixSort(SortableLinkedList data){
   SortableLinkedList pos = new SortableLinkedList();
   SortableLinkedList neg = new SortableLinkedList();
-    while(data.size() > 0) {
+    int counter = 0;
+    while(counter<data.size()) {
         int first = data.remove(0);
         if(first >= 0) {
             pos.add(first);
         } else {
-            neg.add(first);}}
+            data.add(first);
+          counter ++;}
+        }
 
     radixSortSimple(pos);
-    radixSortSimple(neg);
 
-    while(neg.size() > 0) {
-        data.add(neg.remove(neg.size() - 1));
+
+    SortableLinkedList[] buckets = new SortableLinkedList[10];
+
+
+    for (int i = 0; i<10; i++){
+      buckets[i] = new SortableLinkedList();
     }
+    int passes = 1;
+
+
+
+    for (int j = 0; j<passes; j++){
+        while (data.size()>0){
+            int rm =data.remove(0);
+            buckets[9-nth(rm,j)].add(rm);
+            if (j == 0){
+              if (length(rm)>passes){
+                passes = length(rm);
+              }
+            }
+        }
+          merge(data,buckets);
+      }
+
+
+
+
+
     data.extend(pos);
   }
 
